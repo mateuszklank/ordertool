@@ -1,6 +1,9 @@
 package pl.i4less.ordertool.controller;
 
 import org.springframework.http.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
@@ -8,11 +11,22 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 
 @RestController
+@Controller
 public class OrderController {
 
     @RequestMapping("/")
     public String index() {
         return "Greetings!";
+    }
+
+    @RequestMapping("/getOrder")
+    @ResponseBody
+    public String getOrder(
+            @RequestParam String login,
+            @RequestParam String pass,
+            @RequestParam(required = false) String id) {
+
+        return String.format("Values: login=%s, pass=%s, id=%s", login, pass, id);
     }
 
     @RequestMapping("/test")
