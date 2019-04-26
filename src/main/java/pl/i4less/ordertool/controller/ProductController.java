@@ -1,10 +1,23 @@
 package pl.i4less.ordertool.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.i4less.ordertool.entity.Greeting;
 
 @Controller
 public class ProductController {
+
+    @GetMapping("/greeting")
+    public String greetingForm(Model model) {
+        model.addAttribute("greeting", new Greeting());
+        return "greeting";
+    }
+
+    @PostMapping("/greeting")
+    public String greetingSubmit(@ModelAttribute Greeting greeting) {
+        return "result";
+    }
 
     @RequestMapping("/addProduct")
     @ResponseBody

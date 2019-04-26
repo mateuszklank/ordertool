@@ -1,12 +1,8 @@
-package pl.i4less.ordertool.entity;
+package pl.i4less.ordertool.entity.systim;
 
 import org.springframework.lang.Nullable;
 
-public class ProductSystim {
-
-    private String login;
-
-    private String pass;
+public class ProductSystim extends Systim {
 
     private String nazwa;
 
@@ -61,22 +57,6 @@ public class ProductSystim {
 
     @Nullable
     private String ceny;
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
 
     public String getNazwa() {
         return nazwa;

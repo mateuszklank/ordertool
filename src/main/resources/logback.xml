@@ -1,0 +1,25 @@
+<configuration>
+
+    <property name="LOG_DIR" value="logback" />
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <filter class="pl.i4less.ordertool.logback.SampleFilter"/>
+        <file>${LOG_DIR}/debug.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%date{ISO8601} [%thread][%-5level] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="pl.i4less.ordertool.logback.SampleFilter"/>
+        <encoder>
+            <pattern>%date{ISO8601} [%thread][%-5level] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
