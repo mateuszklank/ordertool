@@ -6,13 +6,13 @@ import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrderBackmarket {
+public class Order {
 
     private int order_id;
 
-    private AddressBackmarket shipping_address;
+    private Address shipping_address;
 
-    private AddressBackmarket billing_address;
+    private Address billing_address;
 
     private String delivery_note;
 
@@ -32,7 +32,7 @@ public class OrderBackmarket {
 
     private int state;
 
-    private List<OrderLineBackmarket> orderlines;
+    private List<OrderLine> orderlines;
 
     private Double price;
 
@@ -56,19 +56,19 @@ public class OrderBackmarket {
         this.order_id = order_id;
     }
 
-    public AddressBackmarket getShipping_address() {
+    public Address getShipping_address() {
         return shipping_address;
     }
 
-    public void setShipping_address(AddressBackmarket shipping_address) {
+    public void setShipping_address(Address shipping_address) {
         this.shipping_address = shipping_address;
     }
 
-    public AddressBackmarket getBilling_address() {
+    public Address getBilling_address() {
         return billing_address;
     }
 
-    public void setBilling_address(AddressBackmarket billing_address) {
+    public void setBilling_address(Address billing_address) {
         this.billing_address = billing_address;
     }
 
@@ -144,11 +144,11 @@ public class OrderBackmarket {
         this.state = state;
     }
 
-    public List<OrderLineBackmarket> getOrderlines() {
+    public List<OrderLine> getOrderlines() {
         return orderlines;
     }
 
-    public void setOrderlines(List<OrderLineBackmarket> orderlines) {
+    public void setOrderlines(List<OrderLine> orderlines) {
         this.orderlines = orderlines;
     }
 
@@ -210,7 +210,7 @@ public class OrderBackmarket {
 
     @Override
     public String toString() {
-        return "OrderBackmarket{" +
+        return "Order{" +
                 "order_id=" + order_id +
                 ", shipping_address=" + shipping_address +
                 ", billing_address=" + billing_address +

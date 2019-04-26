@@ -2,7 +2,7 @@ package pl.i4less.ordertool.entity.systim;
 
 import org.springframework.lang.Nullable;
 
-public class OrderSystim extends Systim {
+public class Order extends Systim {
 
     private String nazwa;
 
@@ -24,7 +24,7 @@ public class OrderSystim extends Systim {
 
     private int idMetodyDostawy;
 
-    private ProductSystim produkty;
+    private Product produkty;
 
     private int idZamawiajacego;
 
@@ -154,11 +154,11 @@ public class OrderSystim extends Systim {
         this.idMetodyDostawy = idMetodyDostawy;
     }
 
-    public ProductSystim getProdukty() {
+    public Product getProdukty() {
         return produkty;
     }
 
-    public void setProdukty(ProductSystim produkty) {
+    public void setProdukty(Product produkty) {
         this.produkty = produkty;
     }
 

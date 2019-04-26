@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
-import pl.i4less.ordertool.entity.backmarket.OrdersListBackmarket;
+import pl.i4less.ordertool.entity.backmarket.OrdersList;
 
 import java.util.Collections;
-import java.util.List;
 
 @RestController
 @Controller
@@ -105,12 +104,12 @@ public class OrderController {
 
         RestTemplate rest = new RestTemplate();
 
-        ResponseEntity<OrdersListBackmarket> response = rest.exchange(
+        ResponseEntity<OrdersList> response = rest.exchange(
                 "https://ppr.backmarket.fr/ws/orders/",
                 HttpMethod.GET,
                 new HttpEntity<>("parameters", headers),
-                new ParameterizedTypeReference<OrdersListBackmarket>(){});
-        OrdersListBackmarket orders = response.getBody();
+                new ParameterizedTypeReference<OrdersList>(){});
+        OrdersList orders = response.getBody();
         return orders.toString();
     }
 

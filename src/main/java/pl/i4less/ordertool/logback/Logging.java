@@ -34,13 +34,13 @@ public class Logging {
             //‘﻿%Y-%m-%d %H:%M:%S’ - date format for Back Market orders
 
             //read data from file
-            System.out.println(readFile("C:/Users/Quari/Desktop/project/ordertool/src/main/resources/date.log", Charset.forName("ASCII")) + " - ostatnie wykonanie zadania.");
+            logger.trace(readFile("C:/Users/Quari/Desktop/project/ordertool/src/main/resources/date.log", Charset.forName("ASCII")) + " - ostatnie wykonanie zadania.");
 
             //get current date and convert to String
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
             String dateString = dateFormat.format(date);
-            System.out.println(dateString + " - data aktualna.");
+            logger.trace(dateString + " - data aktualna.");
 
             //create and save date to file
             File file = new File("src/main/resources/date.log");
@@ -50,7 +50,7 @@ public class Logging {
 
             //logger.info("Task executed at {}", dateFormat.format(new Date()));
         } catch (IOException ioe) {
-            System.out.println("Task error!");
+            System.out.println(ioe);
         }
     }
 

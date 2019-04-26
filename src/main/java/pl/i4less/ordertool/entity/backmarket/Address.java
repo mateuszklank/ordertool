@@ -3,7 +3,7 @@ package pl.i4less.ordertool.entity.backmarket;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AddressBackmarket {
+public class Address {
 
     private String company;
 
@@ -117,7 +117,7 @@ public class AddressBackmarket {
 
     @Override
     public String toString() {
-        return "AddressBackmarket{" +
+        return "Address{" +
                 "company='" + company + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", first_name='" + first_name + '\'' +

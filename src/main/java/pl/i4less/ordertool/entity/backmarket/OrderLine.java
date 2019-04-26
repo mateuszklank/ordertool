@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrderLineBackmarket {
+public class OrderLine {
 
     private int id;
 
@@ -151,7 +151,7 @@ public class OrderLineBackmarket {
 
     @Override
     public String toString() {
-        return "OrderLineBackmarket{" +
+        return "OrderLine{" +
                 "id=" + id +
                 ", date_creation=" + date_creation +
                 ", state=" + state +

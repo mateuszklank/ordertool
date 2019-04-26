@@ -2,7 +2,7 @@ package pl.i4less.ordertool.entity.systim;
 
 import org.springframework.lang.Nullable;
 
-public class ProductSystim extends Systim {
+public class Product extends Systim {
 
     private String nazwa;
 

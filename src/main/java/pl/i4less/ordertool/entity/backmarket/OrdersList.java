@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrdersListBackmarket {
+public class OrdersList {
 
     private int count;
 
@@ -13,7 +13,7 @@ public class OrdersListBackmarket {
 
     private String previous;
 
-    private List<OrderBackmarket> results;
+    private List<Order> results;
 
     public int getCount() {
         return count;
@@ -39,17 +39,17 @@ public class OrdersListBackmarket {
         this.previous = previous;
     }
 
-    public List<OrderBackmarket> getResults() {
+    public List<Order> getResults() {
         return results;
     }
 
-    public void setResults(List<OrderBackmarket> results) {
+    public void setResults(List<Order> results) {
         this.results = results;
     }
 
     @Override
     public String toString() {
-        return "OrdersListBackmarket{" +
+        return "OrdersList{" +
                 "count=" + count +
                 ", next='" + next + '\'' +
                 ", previous='" + previous + '\'' +
