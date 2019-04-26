@@ -2,6 +2,7 @@ package pl.i4less.ordertool.logback;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,18 +24,22 @@ public class Logging {
 
     private static final Logger logger = LoggerFactory.getLogger(Logging.class);
 
+    @Value("${path.date}")
+    private String filePath;
+
     private static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
     }
 
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRateString = "${fixedRate.in.milliseconds}")
     public void executeTask() {
         try {
             //‘﻿%Y-%m-%d %H:%M:%S’ - date format for Back Market orders
 
             //read data from file
-            logger.trace(readFile("C:/Users/Quari/Desktop/project/ordertool/src/main/resources/date.log", Charset.forName("ASCII")) + " - ostatnie wykonanie zadania.");
+            logger.trace(readFile(filePath, Charset.forName("ASCII")) + " - ostatnie wykonanie zadania.");
 
             //get current date and convert to String
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
