@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderLineBackmarket {
@@ -30,7 +31,7 @@ public class OrderLineBackmarket {
 
     private int quantity;
 
-    private ArrayList<String> imei_numbers;
+    private List<String> imei_numbers;
 
     private String brand;
 
@@ -124,11 +125,11 @@ public class OrderLineBackmarket {
         this.quantity = quantity;
     }
 
-    public ArrayList<String> getImei_numbers() {
+    public List<String> getImei_numbers() {
         return imei_numbers;
     }
 
-    public void setImei_numbers(ArrayList<String> imei_numbers) {
+    public void setImei_numbers(List<String> imei_numbers) {
         this.imei_numbers = imei_numbers;
     }
 
@@ -148,4 +149,23 @@ public class OrderLineBackmarket {
         this.product_id = product_id;
     }
 
+    @Override
+    public String toString() {
+        return "OrderLineBackmarket{" +
+                "id=" + id +
+                ", date_creation=" + date_creation +
+                ", state=" + state +
+                ", price=" + price +
+                ", shipping_price=" + shipping_price +
+                ", currency='" + currency + '\'' +
+                ", return_reason=" + return_reason +
+                ", return_message='" + return_message + '\'' +
+                ", listing='" + listing + '\'' +
+                ", product='" + product + '\'' +
+                ", quantity=" + quantity +
+                ", imei_numbers=" + imei_numbers +
+                ", brand='" + brand + '\'' +
+                ", product_id=" + product_id +
+                '}';
+    }
 }

@@ -3,6 +3,7 @@ package pl.i4less.ordertool.entity.backmarket;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderBackmarket {
@@ -31,7 +32,7 @@ public class OrderBackmarket {
 
     private int state;
 
-    private OrderLineBackmarket orderlines;
+    private List<OrderLineBackmarket> orderlines;
 
     private Double price;
 
@@ -143,11 +144,11 @@ public class OrderBackmarket {
         this.state = state;
     }
 
-    public OrderLineBackmarket getOrderlines() {
+    public List<OrderLineBackmarket> getOrderlines() {
         return orderlines;
     }
 
-    public void setOrderlines(OrderLineBackmarket orderlines) {
+    public void setOrderlines(List<OrderLineBackmarket> orderlines) {
         this.orderlines = orderlines;
     }
 
@@ -207,4 +208,29 @@ public class OrderBackmarket {
         this.payment_method = payment_method;
     }
 
+    @Override
+    public String toString() {
+        return "OrderBackmarket{" +
+                "order_id=" + order_id +
+                ", shipping_address=" + shipping_address +
+                ", billing_address=" + billing_address +
+                ", delivery_note='" + delivery_note + '\'' +
+                ", tracking_number='" + tracking_number + '\'' +
+                ", tracking_url='" + tracking_url + '\'' +
+                ", shipper='" + shipper + '\'' +
+                ", date_creation=" + date_creation +
+                ", date_modification=" + date_modification +
+                ", date_shipping=" + date_shipping +
+                ", date_payment=" + date_payment +
+                ", state=" + state +
+                ", orderlines=" + orderlines +
+                ", price=" + price +
+                ", shipping_price=" + shipping_price +
+                ", currency='" + currency + '\'' +
+                ", country_code='" + country_code + '\'' +
+                ", paypal_reference='" + paypal_reference + '\'' +
+                ", installment_payment=" + installment_payment +
+                ", payment_method='" + payment_method + '\'' +
+                '}';
+    }
 }

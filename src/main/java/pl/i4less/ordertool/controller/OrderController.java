@@ -105,13 +105,13 @@ public class OrderController {
 
         RestTemplate rest = new RestTemplate();
 
-        ResponseEntity<List<OrdersListBackmarket>> response = rest.exchange(
+        ResponseEntity<OrdersListBackmarket> response = rest.exchange(
                 "https://ppr.backmarket.fr/ws/orders/",
                 HttpMethod.GET,
                 new HttpEntity<>("parameters", headers),
-                new ParameterizedTypeReference<List<OrdersListBackmarket>>(){});
-        List<OrdersListBackmarket> orders = response.getBody();
-        return "y";
+                new ParameterizedTypeReference<OrdersListBackmarket>(){});
+        OrdersListBackmarket orders = response.getBody();
+        return orders.toString();
     }
 
 }

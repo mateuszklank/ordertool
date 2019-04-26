@@ -2,6 +2,8 @@ package pl.i4less.ordertool.entity.backmarket;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrdersListBackmarket {
 
@@ -11,7 +13,7 @@ public class OrdersListBackmarket {
 
     private String previous;
 
-    private OrderBackmarket results;
+    private List<OrderBackmarket> results;
 
     public int getCount() {
         return count;
@@ -37,12 +39,21 @@ public class OrdersListBackmarket {
         this.previous = previous;
     }
 
-    public OrderBackmarket getResults() {
+    public List<OrderBackmarket> getResults() {
         return results;
     }
 
-    public void setResults(OrderBackmarket results) {
+    public void setResults(List<OrderBackmarket> results) {
         this.results = results;
     }
 
+    @Override
+    public String toString() {
+        return "OrdersListBackmarket{" +
+                "count=" + count +
+                ", next='" + next + '\'' +
+                ", previous='" + previous + '\'' +
+                ", results=" + results +
+                '}';
+    }
 }

@@ -115,4 +115,20 @@ public class AddressBackmarket {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "AddressBackmarket{" +
+                "company='" + company + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", gender=" + gender +
+                ", street='" + street + '\'' +
+                ", street2='" + street2 + '\'' +
+                ", postal_code='" + postal_code + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
