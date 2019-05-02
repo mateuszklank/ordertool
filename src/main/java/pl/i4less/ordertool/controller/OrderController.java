@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import pl.i4less.ordertool.entity.backmarket.OrdersList;
+import pl.i4less.ordertool.entity.systim.Order;
 
 import java.util.Collections;
 
@@ -110,6 +111,9 @@ public class OrderController {
                 new HttpEntity<>("parameters", headers),
                 new ParameterizedTypeReference<OrdersList>(){});
         OrdersList orders = response.getBody();
+
+        orders.convertOrders(orders);
+
         return orders.toString();
     }
 

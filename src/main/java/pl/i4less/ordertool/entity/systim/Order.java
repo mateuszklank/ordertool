@@ -2,6 +2,8 @@ package pl.i4less.ordertool.entity.systim;
 
 import org.springframework.lang.Nullable;
 
+import java.util.List;
+
 public class Order extends Systim {
 
     private String nazwa;
@@ -12,49 +14,48 @@ public class Order extends Systim {
 
     private String ulica;
 
-    private String nazwaDostawy;
+    private String nazwa_dostawy;
 
-    private String kodDostawy;
+    private String kod_dostawy;
 
-    private String miejscowoscDostawy;
+    private String miejscowosc_dostawy;
 
-    private String ulicaDostawy;
+    private String ulica_dostawy;
 
-    private int idDostawy;
+    private int id_dostawy;
 
-    private int idMetodyDostawy;
+    @Nullable
+    private List<Product> produkty;
 
-    private Product produkty;
-
-    private int idZamawiajacego;
+    private int id_zamawiajacego;
 
     private String imie;
 
     private String nazwisko;
 
     @Nullable
-    private int naliczanieBrutto;
+    private int naliczanie_brutto;
 
     @Nullable
-    private int idKontrahenta;
+    private int id_kontrahenta;
 
     @Nullable
-    private int idWojewodztwa;
+    private int id_wojewodztwa;
 
     @Nullable
     private String numer;
 
     @Nullable
-    private int idWaluty;
+    private int id_waluty;
 
     @Nullable
     private String opis;
 
     @Nullable
-    private int idStatusu;
+    private int id_statusu;
 
     @Nullable
-    private int idObslugujacego;
+    private int id_obslugujacego;
 
     @Nullable
     private String nip;
@@ -63,7 +64,7 @@ public class Order extends Systim {
     private String panstwo;
 
     @Nullable
-    private String panstwoDostawy;
+    private String panstwo_dostawy;
 
     @Nullable
     private String uwagi;
@@ -106,68 +107,60 @@ public class Order extends Systim {
         this.ulica = ulica;
     }
 
-    public String getNazwaDostawy() {
-        return nazwaDostawy;
+    public String getNazwa_dostawy() {
+        return nazwa_dostawy;
     }
 
-    public void setNazwaDostawy(String nazwaDostawy) {
-        this.nazwaDostawy = nazwaDostawy;
+    public void setNazwa_dostawy(String nazwa_dostawy) {
+        this.nazwa_dostawy = nazwa_dostawy;
     }
 
-    public String getKodDostawy() {
-        return kodDostawy;
+    public String getKod_dostawy() {
+        return kod_dostawy;
     }
 
-    public void setKodDostawy(String kodDostawy) {
-        this.kodDostawy = kodDostawy;
+    public void setKod_dostawy(String kod_dostawy) {
+        this.kod_dostawy = kod_dostawy;
     }
 
-    public String getMiejscowoscDostawy() {
-        return miejscowoscDostawy;
+    public String getMiejscowosc_dostawy() {
+        return miejscowosc_dostawy;
     }
 
-    public void setMiejscowoscDostawy(String miejscowoscDostawy) {
-        this.miejscowoscDostawy = miejscowoscDostawy;
+    public void setMiejscowosc_dostawy(String miejscowosc_dostawy) {
+        this.miejscowosc_dostawy = miejscowosc_dostawy;
     }
 
-    public String getUlicaDostawy() {
-        return ulicaDostawy;
+    public String getUlica_dostawy() {
+        return ulica_dostawy;
     }
 
-    public void setUlicaDostawy(String ulicaDostawy) {
-        this.ulicaDostawy = ulicaDostawy;
+    public void setUlica_dostawy(String ulica_dostawy) {
+        this.ulica_dostawy = ulica_dostawy;
     }
 
-    public int getIdDostawy() {
-        return idDostawy;
+    public int getId_dostawy() {
+        return id_dostawy;
     }
 
-    public void setIdDostawy(int idDostawy) {
-        this.idDostawy = idDostawy;
+    public void setId_dostawy(int id_dostawy) {
+        this.id_dostawy = id_dostawy;
     }
 
-    public int getIdMetodyDostawy() {
-        return idMetodyDostawy;
-    }
-
-    public void setIdMetodyDostawy(int idMetodyDostawy) {
-        this.idMetodyDostawy = idMetodyDostawy;
-    }
-
-    public Product getProdukty() {
+    public List<Product> getProdukty() {
         return produkty;
     }
 
-    public void setProdukty(Product produkty) {
+    public void setProdukty(List<Product> produkty) {
         this.produkty = produkty;
     }
 
-    public int getIdZamawiajacego() {
-        return idZamawiajacego;
+    public int getId_zamawiajacego() {
+        return id_zamawiajacego;
     }
 
-    public void setIdZamawiajacego(int idZamawiajacego) {
-        this.idZamawiajacego = idZamawiajacego;
+    public void setId_zamawiajacego(int id_zamawiajacego) {
+        this.id_zamawiajacego = id_zamawiajacego;
     }
 
     public String getImie() {
@@ -187,30 +180,30 @@ public class Order extends Systim {
     }
 
     @Nullable
-    public int getNaliczanieBrutto() {
-        return naliczanieBrutto;
+    public int getNaliczanie_brutto() {
+        return naliczanie_brutto;
     }
 
-    public void setNaliczanieBrutto(@Nullable int naliczanieBrutto) {
-        this.naliczanieBrutto = naliczanieBrutto;
-    }
-
-    @Nullable
-    public int getIdKontrahenta() {
-        return idKontrahenta;
-    }
-
-    public void setIdKontrahenta(@Nullable int idKontrahenta) {
-        this.idKontrahenta = idKontrahenta;
+    public void setNaliczanie_brutto(@Nullable int naliczanie_brutto) {
+        this.naliczanie_brutto = naliczanie_brutto;
     }
 
     @Nullable
-    public int getIdWojewodztwa() {
-        return idWojewodztwa;
+    public int getId_kontrahenta() {
+        return id_kontrahenta;
     }
 
-    public void setIdWojewodztwa(@Nullable int idWojewodztwa) {
-        this.idWojewodztwa = idWojewodztwa;
+    public void setId_kontrahenta(@Nullable int id_kontrahenta) {
+        this.id_kontrahenta = id_kontrahenta;
+    }
+
+    @Nullable
+    public int getId_wojewodztwa() {
+        return id_wojewodztwa;
+    }
+
+    public void setId_wojewodztwa(@Nullable int id_wojewodztwa) {
+        this.id_wojewodztwa = id_wojewodztwa;
     }
 
     @Nullable
@@ -223,12 +216,12 @@ public class Order extends Systim {
     }
 
     @Nullable
-    public int getIdWaluty() {
-        return idWaluty;
+    public int getId_waluty() {
+        return id_waluty;
     }
 
-    public void setIdWaluty(@Nullable int idWaluty) {
-        this.idWaluty = idWaluty;
+    public void setId_waluty(@Nullable int id_waluty) {
+        this.id_waluty = id_waluty;
     }
 
     @Nullable
@@ -241,21 +234,21 @@ public class Order extends Systim {
     }
 
     @Nullable
-    public int getIdStatusu() {
-        return idStatusu;
+    public int getId_statusu() {
+        return id_statusu;
     }
 
-    public void setIdStatusu(@Nullable int idStatusu) {
-        this.idStatusu = idStatusu;
+    public void setId_statusu(@Nullable int id_statusu) {
+        this.id_statusu = id_statusu;
     }
 
     @Nullable
-    public int getIdObslugujacego() {
-        return idObslugujacego;
+    public int getId_obslugujacego() {
+        return id_obslugujacego;
     }
 
-    public void setIdObslugujacego(@Nullable int idObslugujacego) {
-        this.idObslugujacego = idObslugujacego;
+    public void setId_obslugujacego(@Nullable int id_obslugujacego) {
+        this.id_obslugujacego = id_obslugujacego;
     }
 
     @Nullable
@@ -277,12 +270,12 @@ public class Order extends Systim {
     }
 
     @Nullable
-    public String getPanstwoDostawy() {
-        return panstwoDostawy;
+    public String getPanstwo_dostawy() {
+        return panstwo_dostawy;
     }
 
-    public void setPanstwoDostawy(@Nullable String panstwoDostawy) {
-        this.panstwoDostawy = panstwoDostawy;
+    public void setPanstwo_dostawy(@Nullable String panstwo_dostawy) {
+        this.panstwo_dostawy = panstwo_dostawy;
     }
 
     @Nullable
@@ -311,5 +304,38 @@ public class Order extends Systim {
     public void setTelefon(@Nullable String telefon) {
         this.telefon = telefon;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "nazwa='" + nazwa + '\'' +
+                ", kod='" + kod + '\'' +
+                ", miejscowosc='" + miejscowosc + '\'' +
+                ", ulica='" + ulica + '\'' +
+                ", nazwa_dostawy='" + nazwa_dostawy + '\'' +
+                ", kod_dostawy='" + kod_dostawy + '\'' +
+                ", miejscowosc_dostawy='" + miejscowosc_dostawy + '\'' +
+                ", ulica_dostawy='" + ulica_dostawy + '\'' +
+                ", id_dostawy=" + id_dostawy +
+                ", produkty=" + produkty +
+                ", id_zamawiajacego=" + id_zamawiajacego +
+                ", imie='" + imie + '\'' +
+                ", nazwisko='" + nazwisko + '\'' +
+                ", naliczanie_brutto=" + naliczanie_brutto +
+                ", id_kontrahenta=" + id_kontrahenta +
+                ", id_wojewodztwa=" + id_wojewodztwa +
+                ", numer='" + numer + '\'' +
+                ", id_waluty=" + id_waluty +
+                ", opis='" + opis + '\'' +
+                ", id_statusu=" + id_statusu +
+                ", id_obslugujacego=" + id_obslugujacego +
+                ", nip='" + nip + '\'' +
+                ", panstwo='" + panstwo + '\'' +
+                ", panstwo_dostawy='" + panstwo_dostawy + '\'' +
+                ", uwagi='" + uwagi + '\'' +
+                ", email='" + email + '\'' +
+                ", telefon='" + telefon + '\'' +
+                '}';
+    }
+
 }

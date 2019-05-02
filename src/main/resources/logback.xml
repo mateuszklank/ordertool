@@ -17,11 +17,14 @@
         </encoder>
     </appender>
 
-
-
-    <root level="TRACE">
+    <logger name="pl.i4less.ordertool" level="TRACE">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
-    </root>
+    </logger>
+
+    <!--<root level="TRACE">-->
+        <!--<appender-ref ref="STDOUT"/>-->
+        <!--<appender-ref ref="FILE"/>-->
+    <!--</root>-->
 
 </configuration>
