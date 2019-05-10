@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.view.RedirectView;
 import pl.i4less.ordertool.entity.backmarket.OrdersList;
 import pl.i4less.ordertool.entity.systim.Order;
 
@@ -115,6 +116,13 @@ public class OrderController {
         orders.convertOrders(orders);
 
         return orders.toString();
+    }
+
+    @RequestMapping("/to-be-redirected")
+    public RedirectView localRedirect() {
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://www.yahoo.com");
+        return redirectView;
     }
 
 }

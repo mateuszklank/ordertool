@@ -234,4 +234,8 @@ public class Order {
                 '}';
     }
 
+    public String getStringOrder_id() {
+        return order_id + "";
+    }
+
 }

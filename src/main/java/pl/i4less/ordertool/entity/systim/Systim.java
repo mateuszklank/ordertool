@@ -10,6 +10,9 @@ public class Systim {
     @Value("${systim.pass}")
     private String pass;
 
+    @Value("${systim.number}")
+    private String number;
+
     public String getLogin() {
         return login;
     }
@@ -25,5 +28,13 @@ public class Systim {
     public void setPass(String pass) {
         this.pass = pass;
     }
-    
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
 }

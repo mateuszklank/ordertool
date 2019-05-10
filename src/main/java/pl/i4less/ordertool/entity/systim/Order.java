@@ -1,10 +1,19 @@
 package pl.i4less.ordertool.entity.systim;
 
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.web.util.UriUtils;
 
-import java.util.List;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class Order extends Systim {
+
+    @Autowired
+    Logger logger;
 
     private String nazwa;
 
@@ -25,7 +34,7 @@ public class Order extends Systim {
     private int id_dostawy;
 
     @Nullable
-    private List<Product> produkty;
+    private HashMap<Integer, Integer> produkty;
 
     private int id_zamawiajacego;
 
@@ -147,11 +156,11 @@ public class Order extends Systim {
         this.id_dostawy = id_dostawy;
     }
 
-    public List<Product> getProdukty() {
+    public HashMap<Integer, Integer> getProdukty() {
         return produkty;
     }
 
-    public void setProdukty(List<Product> produkty) {
+    public void setProdukty(HashMap<Integer, Integer> produkty) {
         this.produkty = produkty;
     }
 
@@ -336,6 +345,56 @@ public class Order extends Systim {
                 ", email='" + email + '\'' +
                 ", telefon='" + telefon + '\'' +
                 '}';
+    }
+
+    public String toRequestString() {
+        return "https://" + getNumber() +
+                ".systim.pl/jsonAPI.php?act=addOrder&login=" + getLogin() +
+                "&pass=" + getPass() +
+                "&nazwa=" + getNazwa() +
+                "&kod=" + getKod() +
+                "&miejscowosc=" + getMiejscowosc() +
+                "&ulica=" + getUlica() +
+                "&nazwa_dostawy=" + getNazwa_dostawy() +
+                "&kod_dostawy=" + getKod_dostawy() +
+                "&miejscowosc_dostawy=" + getMiejscowosc_dostawy() +
+                "&ulica_dostawy=" + getUlica_dostawy() +
+                "&id_dostawy=" + getId_dostawy() +
+                printMap(produkty) +
+                "&imie=" + getImie() +
+                "&nazwisko=" + getNazwisko();
+    }
+
+    public String encodePath(String path) {
+        try {
+            path = UriUtils.encodePath(path, "UTF-8");
+        } catch (Exception e) {
+            logger.error("Error encoding parameter {}", e.getMessage(), e);
+        }
+        return path;
+    }
+
+    public String encodeValue(String value) {
+        try {
+            //URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+            URLEncoder.encode(value, "UTF-8");
+        } catch (Exception e) {
+            logger.error("Error encoding parameter {}", e.getMessage(), e);
+        }
+        return value;
+    }
+
+    public static String printMap(HashMap mp) {
+        String productsSet = new String();
+        Iterator it = mp.entrySet().iterator();
+        while (it.hasNext()) {
+            for(int k = 0; k < mp.size(); k++) {
+                HashMap.Entry pair = (HashMap.Entry)it.next();
+                productsSet += "&produkty[" + k + "][id]=" + pair.getKey() + "&produkty[" + k + "][ilosc]=" + pair.getValue();
+            }
+        }
+        //System.out.println(productsSet);
+        return productsSet;
     }
 
 }
