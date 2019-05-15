@@ -1,23 +1,31 @@
 package pl.i4less.ordertool.entity.systim;
 
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import pl.i4less.ordertool.ValueAnnotationBean;
+
+import java.net.URLEncoder;
 
 public class Product extends Systim {
 
+    @Autowired
+    Logger logger;
+
     private String nazwa;
 
-    private double cenaBrutto;
+    private double cena_brutto;
 
-    private double cenaNetto;
+    private double cena_netto;
 
-    private int idKategorii;
+    private int id_kategorii;
 
-    private int stawkaVat;
+    private int stawka_vat;
 
     private int rodzaj;
 
     @Nullable
-    private int idDodajacego;
+    private int id_dodajacego;
 
     @Nullable
     private int ukryty;
@@ -38,10 +46,10 @@ public class Product extends Systim {
     private String isbn;
 
     @Nullable
-    private String kodKreskowy;
+    private int kod_kreskowy;
 
     @Nullable
-    private String kodProduktu;
+    private int kod_produktu;
 
     @Nullable
     private String pkwiu;
@@ -66,36 +74,36 @@ public class Product extends Systim {
         this.nazwa = nazwa;
     }
 
-    public double getCenaBrutto() {
-        return cenaBrutto;
+    public double getCena_brutto() {
+        return cena_brutto;
     }
 
-    public void setCenaBrutto(double cenaBrutto) {
-        this.cenaBrutto = cenaBrutto;
+    public void setCena_brutto(double cena_brutto) {
+        this.cena_brutto = cena_brutto;
     }
 
-    public double getCenaNetto() {
-        return cenaNetto;
+    public double getCena_netto() {
+        return cena_netto;
     }
 
-    public void setCenaNetto(double cenaNetto) {
-        this.cenaNetto = cenaNetto;
+    public void setCena_netto(double cena_netto) {
+        this.cena_netto = cena_netto;
     }
 
-    public int getIdKategorii() {
-        return idKategorii;
+    public int getId_kategorii() {
+        return id_kategorii;
     }
 
-    public void setIdKategorii(int idKategorii) {
-        this.idKategorii = idKategorii;
+    public void setId_kategorii(int id_kategorii) {
+        this.id_kategorii = id_kategorii;
     }
 
-    public int getStawkaVat() {
-        return stawkaVat;
+    public int getStawka_vat() {
+        return stawka_vat;
     }
 
-    public void setStawkaVat(int stawkaVat) {
-        this.stawkaVat = stawkaVat;
+    public void setStawka_vat(int stawka_vat) {
+        this.stawka_vat = stawka_vat;
     }
 
     public int getRodzaj() {
@@ -107,12 +115,12 @@ public class Product extends Systim {
     }
 
     @Nullable
-    public int getIdDodajacego() {
-        return idDodajacego;
+    public int getId_dodajacego() {
+        return id_dodajacego;
     }
 
-    public void setIdDodajacego(@Nullable int idDodajacego) {
-        this.idDodajacego = idDodajacego;
+    public void setId_dodajacego(@Nullable int id_dodajacego) {
+        this.id_dodajacego = id_dodajacego;
     }
 
     @Nullable
@@ -170,21 +178,21 @@ public class Product extends Systim {
     }
 
     @Nullable
-    public String getKodKreskowy() {
-        return kodKreskowy;
+    public int getKod_kreskowy() {
+        return kod_kreskowy;
     }
 
-    public void setKodKreskowy(@Nullable String kodKreskowy) {
-        this.kodKreskowy = kodKreskowy;
+    public void setKod_kreskowy(@Nullable int kod_kreskowy) {
+        this.kod_kreskowy = kod_kreskowy;
     }
 
     @Nullable
-    public String getKodProduktu() {
-        return kodProduktu;
+    public int getKod_produktu() {
+        return kod_produktu;
     }
 
-    public void setKodProduktu(@Nullable String kodProduktu) {
-        this.kodProduktu = kodProduktu;
+    public void setKod_produktu(@Nullable int kod_produktu) {
+        this.kod_produktu = kod_produktu;
     }
 
     @Nullable
@@ -230,6 +238,31 @@ public class Product extends Systim {
 
     public void setCeny(@Nullable String ceny) {
         this.ceny = ceny;
+    }
+
+    public String toRequestString() {
+        return "https://" + ValueAnnotationBean.getNumber() +
+                ".systim.pl/jsonAPI.php?act=addProduct&login=" + ValueAnnotationBean.getLogin() +
+                "&pass=" + ValueAnnotationBean.getPass() +
+                "&nazwa=" + getNazwa() +
+                "&cena_brutto=" + getCena_brutto() +
+                "&cena_netto=" + getCena_netto() +
+                "&id_kategorii=" + getId_kategorii() +
+                "&stawka_vat=" + + getStawka_vat() +
+                "&rodzaj=" + getRodzaj() +
+                "&opis=" + getOpis() +
+                "&kod_kreskowy=" + getKod_kreskowy() +
+                "&kod_produktu=" + getKod_produktu();
+    }
+
+    public String encodeValue(String value) {
+        try {
+            //URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+            value = URLEncoder.encode(value, "UTF-8");
+        } catch (Exception e) {
+            logger.error("Error encoding parameter {}", e.getMessage(), e);
+        }
+        return value;
     }
 
 }

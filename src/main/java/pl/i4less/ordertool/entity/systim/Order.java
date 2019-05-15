@@ -2,11 +2,14 @@ package pl.i4less.ordertool.entity.systim;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriUtils;
+import pl.i4less.ordertool.ValueAnnotationBean;
 
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -348,9 +351,9 @@ public class Order extends Systim {
     }
 
     public String toRequestString() {
-        return "https://" + getNumber() +
-                ".systim.pl/jsonAPI.php?act=addOrder&login=" + getLogin() +
-                "&pass=" + getPass() +
+        return "https://" + ValueAnnotationBean.getNumber() +
+                ".systim.pl/jsonAPI.php?act=addOrder&login=" + ValueAnnotationBean.getLogin() +
+                "&pass=" + ValueAnnotationBean.getPass() +
                 "&nazwa=" + getNazwa() +
                 "&kod=" + getKod() +
                 "&miejscowosc=" + getMiejscowosc() +
@@ -362,22 +365,20 @@ public class Order extends Systim {
                 "&id_dostawy=" + getId_dostawy() +
                 printMap(produkty) +
                 "&imie=" + getImie() +
-                "&nazwisko=" + getNazwisko();
+                "&nazwisko=" + getNazwisko() +
+                "&telefon=" + getTelefon() +
+                "&id_statusu=" + getId_statusu() +
+                "&email=" + getEmail() +
+                "&uwagi=" + getUwagi() +
+                "&panstwo=" + getPanstwo() +
+                "&panstwo_dostawy=" + getPanstwo_dostawy() +
+                "&id_waluty=" + getId_waluty();
     }
-
-    public String encodePath(String path) {
-        try {
-            path = UriUtils.encodePath(path, "UTF-8");
-        } catch (Exception e) {
-            logger.error("Error encoding parameter {}", e.getMessage(), e);
-        }
-        return path;
-    }
-
+    
     public String encodeValue(String value) {
         try {
             //URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-            URLEncoder.encode(value, "UTF-8");
+            value = URLEncoder.encode(value, "UTF-8");
         } catch (Exception e) {
             logger.error("Error encoding parameter {}", e.getMessage(), e);
         }

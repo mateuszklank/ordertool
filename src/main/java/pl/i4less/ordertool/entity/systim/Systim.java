@@ -1,7 +1,9 @@
 package pl.i4less.ordertool.entity.systim;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Systim {
 
     @Value("${systim.login}")

@@ -1,32 +1,32 @@
 package pl.i4less.ordertool;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @Component
+@Service
 public class ValueAnnotationBean {
 
-    public final String login;
-    public final String pass;
-    public final String number;
+    private static String login;
+    private static String pass;
+    private static String number;
 
-    @Autowired
     public ValueAnnotationBean(@Value("${systim.login}") String login, @Value("${systim.pass}") String pass, @Value("${systim.number}") String number) {
         this.login = login;
         this.pass = pass;
         this.number = number;
     }
 
-    public String getLogin() {
+    public static String getLogin() {
         return login;
     }
 
-    public String getPass() {
+    public static String getPass() {
         return pass;
     }
 
-    public String getNumber() {
+    public static String getNumber() {
         return number;
     }
 

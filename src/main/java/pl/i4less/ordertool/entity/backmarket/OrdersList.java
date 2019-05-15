@@ -1,7 +1,14 @@
 package pl.i4less.ordertool.entity.backmarket;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.Nullable;
+import pl.i4less.ordertool.entity.systim.Product;
+import pl.i4less.ordertool.logback.Logging;
+import pl.i4less.ordertool.service.EncodeService;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,6 +18,8 @@ import java.util.stream.Collectors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrdersList {
 
+    private static final Logger logger = LoggerFactory.getLogger(Logging.class);
+
     private int count;
 
     private String next;
@@ -18,6 +27,12 @@ public class OrdersList {
     private String previous;
 
     private List<Order> results;
+
+    @Nullable
+    private String addOrderRequestUrl;
+
+    @Nullable
+    private String addProductRequestUrl;
 
     public int getCount() {
         return count;
@@ -51,6 +66,24 @@ public class OrdersList {
         this.results = results;
     }
 
+    @Nullable
+    public String getAddOrderRequestUrl() {
+        return addOrderRequestUrl;
+    }
+
+    public void setAddOrderRequestUrl(@Nullable String addOrderRequestUrl) {
+        this.addOrderRequestUrl = addOrderRequestUrl;
+    }
+
+    @Nullable
+    public String getAddProductRequestUrl() {
+        return addProductRequestUrl;
+    }
+
+    public void setAddProductRequestUrl(@Nullable String addProductRequestUrl) {
+        this.addProductRequestUrl = addProductRequestUrl;
+    }
+
     @Override
     public String toString() {
         return "OrdersList{" +
@@ -68,7 +101,7 @@ public class OrdersList {
             //create new systim order
             pl.i4less.ordertool.entity.systim.Order orderSystim = new pl.i4less.ordertool.entity.systim.Order();
             //set values for systim order
-            orderSystim.setNazwa(ordersList.getResults().get(i).getStringOrder_id() + "_" + ordersList.getResults().get(i).getShipping_address().getLast_name());
+            orderSystim.setNazwa(ordersList.getResults().get(i).getShipping_address().getFirst_name() + " " + ordersList.getResults().get(i).getShipping_address().getLast_name());
             orderSystim.setKod(ordersList.getResults().get(i).getBilling_address().getPostal_code());
             orderSystim.setMiejscowosc(ordersList.getResults().get(i).getBilling_address().getCity());
             orderSystim.setUlica(ordersList.getResults().get(i).getBilling_address().getStreet() + " " + ordersList.getResults().get(i).getBilling_address().getStreet2());
@@ -86,20 +119,45 @@ public class OrdersList {
             orderSystim.setUwagi(ordersList.getResults().get(i).getDelivery_note());
             orderSystim.setPanstwo(ordersList.getResults().get(i).getBilling_address().getCountry());
             orderSystim.setPanstwo_dostawy(ordersList.getResults().get(i).getShipping_address().getCountry());
+            //check and set currency
+            if(ordersList.getResults().get(i).getCurrency().equals("EUR")) {
+                orderSystim.setId_waluty(1);
+            } else if(ordersList.getResults().get(i).getCurrency().equals("USD")) {
+                orderSystim.setId_waluty(2);
+            } else if(ordersList.getResults().get(i).getCurrency().equals("PLN")) {
+                orderSystim.setId_waluty(0);
+            }
+            //create new systim product
+            Product productSystim = new Product();
             //create map of ordered products
             HashMap<Integer, Integer> produkty = new HashMap<>();
             //for every product in this order
             for(int j = 0; j < ordersList.getResults().get(i).getOrderlines().size(); j++) {
                 //add product to map
                 produkty.put(ordersList.getResults().get(i).getOrderlines().get(j).getProduct_id(), ordersList.getResults().get(i).getOrderlines().get(j).getQuantity());
+                //set values for systim product
+                productSystim.setNazwa(ordersList.getResults().get(i).getOrderlines().get(j).getProduct());
+                productSystim.setCena_brutto(ordersList.getResults().get(i).getOrderlines().get(j).getPrice());
+                productSystim.setCena_netto(ordersList.getResults().get(i).getOrderlines().get(j).getPrice() - (ordersList.getResults().get(i).getOrderlines().get(j).getPrice() * 0.23));
+                productSystim.setId_kategorii(1);
+                productSystim.setStawka_vat(1);
+                productSystim.setRodzaj(1);
+                productSystim.setJednostka("szt.");
+                productSystim.setOpis(ordersList.getResults().get(i).getOrderlines().get(j).getBrand());
+                productSystim.setKod_kreskowy(ordersList.getResults().get(i).getOrderlines().get(j).getProduct_id());
+                productSystim.setKod_produktu(ordersList.getResults().get(i).getOrderlines().get(j).getProduct_id());
+
+                addProductRequestUrl = productSystim.toRequestString();
+                productSystim.encodeValue(addProductRequestUrl);
+                logger.info("Produkt: " + addProductRequestUrl);
             }
             //set map of ordered products
             orderSystim.setProdukty(produkty);
-            //map to string
-            orderSystim.printMap(produkty);
             //convert object of systim order to request url
-            String urlPath = orderSystim.toRequestString();
-            System.out.println(orderSystim.encodeValue(urlPath));
+            addOrderRequestUrl = orderSystim.toRequestString();
+            //encode url
+            orderSystim.encodeValue(addOrderRequestUrl);
+            logger.info("Zamówienie: " + addOrderRequestUrl);
         }
     }
 
