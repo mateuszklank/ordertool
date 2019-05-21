@@ -11,11 +11,13 @@ public class ValueAnnotationBean {
     private static String login;
     private static String pass;
     private static String number;
+    private static String filePath;
 
-    public ValueAnnotationBean(@Value("${systim.login}") String login, @Value("${systim.pass}") String pass, @Value("${systim.number}") String number) {
+    public ValueAnnotationBean(@Value("${systim.login}") String login, @Value("${systim.pass}") String pass, @Value("${systim.number}") String number, @Value("${path.nextId}") String filePath) {
         this.login = login;
         this.pass = pass;
         this.number = number;
+        this.filePath = filePath;
     }
 
     public static String getLogin() {
@@ -28,6 +30,10 @@ public class ValueAnnotationBean {
 
     public static String getNumber() {
         return number;
+    }
+
+    public static String getFilePath() {
+        return filePath;
     }
 
 }

@@ -39,13 +39,13 @@ public class Logging {
             //‘﻿%Y-%m-%d %H:%M:%S’ - date format for Back Market orders
 
             //read data from file
-            logger.trace(readFile(filePath, Charset.forName("ASCII")) + " - ostatnie wykonanie zadania.");
+            logger.info(readFile(filePath, Charset.forName("ASCII")) + " - ostatnie wykonanie zadania.");
 
             //get current date and convert to String
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
             String dateString = dateFormat.format(date);
-            logger.trace(dateString + " - data aktualna.");
+            logger.info(dateString + " - data aktualna.");
 
             //create and save date to file
             File file = new File("src/main/resources/date.log");
@@ -54,8 +54,8 @@ public class Logging {
             fileWriter.close();
 
             //logger.info("Task executed at {}", dateFormat.format(new Date()));
-        } catch (IOException ioe) {
-            System.out.println(ioe);
+        } catch (IOException e) {
+            logger.info("Error: {}", e);
         }
     }
 

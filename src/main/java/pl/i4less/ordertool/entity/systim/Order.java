@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriUtils;
 import pl.i4less.ordertool.ValueAnnotationBean;
+import pl.i4less.ordertool.service.EncodingService;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -350,28 +351,57 @@ public class Order extends Systim {
                 '}';
     }
 
+//    public String toRequestString() {
+//        return "https://" + ValueAnnotationBean.getNumber() +
+//                ".systim.pl/jsonAPI.php?act=addOrder&login=" + ValueAnnotationBean.getLogin() +
+//                "&pass=" + ValueAnnotationBean.getPass() +
+//                "&nazwa=" + getNazwa() +
+//                "&kod=" + getKod() +
+//                "&miejscowosc=" + getMiejscowosc() +
+//                "&ulica=" + getUlica() +
+//                "&nazwa_dostawy=" + getNazwa_dostawy() +
+//                "&kod_dostawy=" + getKod_dostawy() +
+//                "&miejscowosc_dostawy=" + getMiejscowosc_dostawy() +
+//                "&ulica_dostawy=" + getUlica_dostawy() +
+//                "&id_dostawy=" + getId_dostawy() +
+//                printMap(produkty) +
+//                "&imie=" + getImie() +
+//                "&nazwisko=" + getNazwisko() +
+//                "&telefon=" + getTelefon() +
+//                "&id_statusu=" + getId_statusu() +
+//                "&email=" + getEmail() +
+//                "&uwagi=" + getUwagi() +
+//                "&panstwo=" + getPanstwo() +
+//                "&panstwo_dostawy=" + getPanstwo_dostawy() +
+//                "&id_waluty=" + getId_waluty();
+//    }
+
     public String toRequestString() {
         return "https://" + ValueAnnotationBean.getNumber() +
-                ".systim.pl/jsonAPI.php?act=addOrder&login=" + ValueAnnotationBean.getLogin() +
+                ".systim.pl/jsonAPI.php?act=addOrder";
+    }
+
+    public String toParametersString() {
+        return "&login=" + ValueAnnotationBean.getLogin() +
                 "&pass=" + ValueAnnotationBean.getPass() +
-                "&nazwa=" + getNazwa() +
-                "&kod=" + getKod() +
-                "&miejscowosc=" + getMiejscowosc() +
-                "&ulica=" + getUlica() +
-                "&nazwa_dostawy=" + getNazwa_dostawy() +
-                "&kod_dostawy=" + getKod_dostawy() +
-                "&miejscowosc_dostawy=" + getMiejscowosc_dostawy() +
-                "&ulica_dostawy=" + getUlica_dostawy() +
+                "&nazwa=" + EncodingService.EncodingString(getNazwa()) +
+                "&kod=" + EncodingService.EncodingString(getKod()) +
+                "&miejscowosc=" + EncodingService.EncodingString(getMiejscowosc()) +
+                "&ulica=" + EncodingService.EncodingString(getUlica()) +
+                "&nazwa_dostawy=" + EncodingService.EncodingString(getNazwa_dostawy()) +
+                "&kod_dostawy=" + EncodingService.EncodingString(getKod_dostawy()) +
+                "&miejscowosc_dostawy=" + EncodingService.EncodingString(getMiejscowosc_dostawy()) +
+                "&ulica_dostawy=" + EncodingService.EncodingString(getUlica_dostawy()) +
                 "&id_dostawy=" + getId_dostawy() +
                 printMap(produkty) +
-                "&imie=" + getImie() +
-                "&nazwisko=" + getNazwisko() +
-                "&telefon=" + getTelefon() +
+                "&imie=" + EncodingService.EncodingString(getImie()) +
+                "&nazwisko=" + EncodingService.EncodingString(getNazwisko()) +
+                "&telefon=" + EncodingService.EncodingString(getTelefon()) +
                 "&id_statusu=" + getId_statusu() +
-                "&email=" + getEmail() +
-                "&uwagi=" + getUwagi() +
-                "&panstwo=" + getPanstwo() +
-                "&panstwo_dostawy=" + getPanstwo_dostawy() +
+                "&email=" + EncodingService.EncodingString(getEmail()) +
+                "&uwagi=" + EncodingService.EncodingString(getUwagi()) +
+                "&panstwo=" + EncodingService.EncodingString(getPanstwo()) +
+                "&panstwo_dostawy=" + EncodingService.EncodingString(getPanstwo_dostawy()) +
                 "&id_waluty=" + getId_waluty();
     }
     

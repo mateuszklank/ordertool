@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import pl.i4less.ordertool.ValueAnnotationBean;
+import pl.i4less.ordertool.service.EncodingService;
 
 import java.net.URLEncoder;
 
@@ -240,17 +241,36 @@ public class Product extends Systim {
         this.ceny = ceny;
     }
 
+//    public String toRequestString() {
+//        return "https://" + ValueAnnotationBean.getNumber() +
+//                ".systim.pl/jsonAPI.php?act=addProduct&login=" + ValueAnnotationBean.getLogin() +
+//                "&pass=" + ValueAnnotationBean.getPass() +
+//                "&nazwa=" + getNazwa() +
+//                "&cena_brutto=" + getCena_brutto() +
+//                "&cena_netto=" + getCena_netto() +
+//                "&id_kategorii=" + getId_kategorii() +
+//                "&stawka_vat=" + + getStawka_vat() +
+//                "&rodzaj=" + getRodzaj() +
+//                "&opis=" + getOpis() +
+//                "&kod_kreskowy=" + getKod_kreskowy() +
+//                "&kod_produktu=" + getKod_produktu();
+//    }
+
     public String toRequestString() {
         return "https://" + ValueAnnotationBean.getNumber() +
-                ".systim.pl/jsonAPI.php?act=addProduct&login=" + ValueAnnotationBean.getLogin() +
+                ".systim.pl/jsonAPI.php?act=addProduct";
+    }
+
+    public String toParametersString() {
+        return "&login=" + ValueAnnotationBean.getLogin() +
                 "&pass=" + ValueAnnotationBean.getPass() +
-                "&nazwa=" + getNazwa() +
+                "&nazwa=" + EncodingService.EncodingString(getNazwa()) +
                 "&cena_brutto=" + getCena_brutto() +
                 "&cena_netto=" + getCena_netto() +
                 "&id_kategorii=" + getId_kategorii() +
                 "&stawka_vat=" + + getStawka_vat() +
                 "&rodzaj=" + getRodzaj() +
-                "&opis=" + getOpis() +
+                "&opis=" + EncodingService.EncodingString(getOpis()) +
                 "&kod_kreskowy=" + getKod_kreskowy() +
                 "&kod_produktu=" + getKod_produktu();
     }
