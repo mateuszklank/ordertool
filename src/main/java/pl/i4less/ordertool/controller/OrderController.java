@@ -1,5 +1,9 @@
 package pl.i4less.ordertool.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -12,12 +16,22 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.RedirectView;
 import pl.i4less.ordertool.entity.backmarket.OrdersList;
 import pl.i4less.ordertool.entity.systim.Order;
+import pl.i4less.ordertool.entity.systim.Response;
+import pl.i4less.ordertool.logback.Logging;
+import pl.i4less.ordertool.service.ConvertOrdersService;
 
+import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @Controller
 public class OrderController {
+
+    private static final Logger logger = LoggerFactory.getLogger(Logging.class);
+
+    @Autowired
+    ConvertOrdersService convertOrdersService;
 
     @Value("${backmarket.token}")
     private String authToken;
@@ -113,9 +127,29 @@ public class OrderController {
                 new ParameterizedTypeReference<OrdersList>(){});
         OrdersList orders = response.getBody();
 
-        orders.convertOrders(orders);
+        //orders.convertOrders(orders);
+        convertOrdersService.convertOrders(orders);
+        //convertOrdersService.generateSystimAddOrderUrl(convertOrdersService.convertOrders(orders));
 
         return orders.toString();
+    }
+
+    @RequestMapping("/test5")
+    public String addSystimOrders() {
+        RestTemplate rest = new RestTemplate();
+        ResponseEntity<String> response = rest.exchange(
+                "https://41216.systim.pl/jsonAPI.php?act=addProduct&login=matiic@interia.pl&pass=ByS|H5c{ucBkV$R5mxnMRGp-,us|ij9&nazwa=iPhone+7+32+-+Or+Rose+-+D%C3%A9bloqu%C3%A9&cena_brutto=300.0&cena_netto=243.90243900000002&id_kategorii=1&stawka_vat=1&rodzaj=1&opis=Apple&kod_kreskowy=13445&kod_produktu=13445",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<String>(){});
+        String resp = response.getBody();
+        Response responseObject = new Response();
+        try {
+            responseObject = new ObjectMapper().readValue(resp, Response.class);
+        } catch(IOException e) {
+            logger.info("Error: {}", e);
+        }
+        return responseObject.toString();
     }
 
     @RequestMapping("/to-be-redirected")

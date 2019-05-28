@@ -12,12 +12,14 @@ public class ValueAnnotationBean {
     private static String pass;
     private static String number;
     private static String filePath;
+    private static String datePath;
 
-    public ValueAnnotationBean(@Value("${systim.login}") String login, @Value("${systim.pass}") String pass, @Value("${systim.number}") String number, @Value("${path.nextId}") String filePath) {
+    public ValueAnnotationBean(@Value("${systim.login}") String login, @Value("${systim.pass}") String pass, @Value("${systim.number}") String number, @Value("${path.nextId}") String filePath, @Value("${path.date}") String datePath) {
         this.login = login;
         this.pass = pass;
         this.number = number;
         this.filePath = filePath;
+        this.datePath = datePath;
     }
 
     public static String getLogin() {
@@ -34,6 +36,10 @@ public class ValueAnnotationBean {
 
     public static String getFilePath() {
         return filePath;
+    }
+
+    public static String getDatePath() {
+        return datePath;
     }
 
 }
