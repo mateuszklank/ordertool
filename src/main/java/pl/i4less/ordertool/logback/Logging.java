@@ -52,6 +52,7 @@ public class Logging {
 //            String dateString = dateFormat.format(date);
 //            logger.info(dateString + " - data aktualna.");
 //
+//            //wywolanie test4
 //            //orderController.getOrdersObjects();
 //
 //            //create and save date to file
