@@ -1,17 +1,9 @@
 package pl.i4less.ordertool.entity.systim;
 
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import pl.i4less.ordertool.ValueAnnotationBean;
-import pl.i4less.ordertool.service.EncodingService;
-
-import java.net.URLEncoder;
 
 public class Product extends Systim {
-
-    @Autowired
-    Logger logger;
 
     private String nazwa;
 
@@ -241,21 +233,6 @@ public class Product extends Systim {
         this.ceny = ceny;
     }
 
-//    public String toRequestString() {
-//        return "https://" + ValueAnnotationBean.getNumber() +
-//                ".systim.pl/jsonAPI.php?act=addProduct&login=" + ValueAnnotationBean.getLogin() +
-//                "&pass=" + ValueAnnotationBean.getPass() +
-//                "&nazwa=" + getNazwa() +
-//                "&cena_brutto=" + getCena_brutto() +
-//                "&cena_netto=" + getCena_netto() +
-//                "&id_kategorii=" + getId_kategorii() +
-//                "&stawka_vat=" + + getStawka_vat() +
-//                "&rodzaj=" + getRodzaj() +
-//                "&opis=" + getOpis() +
-//                "&kod_kreskowy=" + getKod_kreskowy() +
-//                "&kod_produktu=" + getKod_produktu();
-//    }
-
     public String toRequestString() {
         return "https://" + ValueAnnotationBean.getNumber() +
                 ".systim.pl/jsonAPI.php?act=addProduct";
@@ -265,26 +242,14 @@ public class Product extends Systim {
         return "&login=" + ValueAnnotationBean.getLogin() +
                 "&pass=" + ValueAnnotationBean.getPass() +
                 "&nazwa=" + getNazwa() +
-                //"&nazwa=" + EncodingService.EncodingString(getNazwa()) +
                 "&cena_brutto=" + getCena_brutto() +
                 "&cena_netto=" + getCena_netto() +
                 "&id_kategorii=" + getId_kategorii() +
                 "&stawka_vat=" + + getStawka_vat() +
                 "&rodzaj=" + getRodzaj() +
                 "&opis=" + getOpis() +
-                //"&opis=" + EncodingService.EncodingString(getOpis()) +
                 "&kod_kreskowy=" + getKod_kreskowy() +
                 "&kod_produktu=" + getKod_produktu();
-    }
-
-    public String encodeValue(String value) {
-        try {
-            //URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-            value = URLEncoder.encode(value, "UTF-8");
-        } catch (Exception e) {
-            logger.error("Error encoding parameter {}", e.getMessage(), e);
-        }
-        return value;
     }
 
 }

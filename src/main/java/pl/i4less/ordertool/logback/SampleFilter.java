@@ -14,4 +14,5 @@ public class SampleFilter extends Filter<ILoggingEvent> {
             return FilterReply.NEUTRAL;
         }
     }
+
 }

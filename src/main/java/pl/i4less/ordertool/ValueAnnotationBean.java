@@ -9,11 +9,17 @@ import org.springframework.stereotype.Service;
 public class ValueAnnotationBean {
 
     private static String login;
+
     private static String pass;
+
     private static String number;
+
     private static String datePath;
 
-    public ValueAnnotationBean(@Value("${systim.login}") String login, @Value("${systim.pass}") String pass, @Value("${systim.number}") String number, @Value("${path.date}") String datePath) {
+    public ValueAnnotationBean(@Value("${systim.login}") String login,
+                               @Value("${systim.pass}") String pass,
+                               @Value("${systim.number}") String number,
+                               @Value("${path.date}") String datePath) {
         this.login = login;
         this.pass = pass;
         this.number = number;

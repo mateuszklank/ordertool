@@ -1,23 +1,12 @@
 package pl.i4less.ordertool.entity.systim;
 
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriUtils;
 import pl.i4less.ordertool.ValueAnnotationBean;
-import pl.i4less.ordertool.service.EncodingService;
 
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 
 public class Order extends Systim {
-
-    @Autowired
-    Logger logger;
 
     private String nazwa;
 
@@ -351,31 +340,6 @@ public class Order extends Systim {
                 '}';
     }
 
-//    public String toRequestString() {
-//        return "https://" + ValueAnnotationBean.getNumber() +
-//                ".systim.pl/jsonAPI.php?act=addOrder&login=" + ValueAnnotationBean.getLogin() +
-//                "&pass=" + ValueAnnotationBean.getPass() +
-//                "&nazwa=" + getNazwa() +
-//                "&kod=" + getKod() +
-//                "&miejscowosc=" + getMiejscowosc() +
-//                "&ulica=" + getUlica() +
-//                "&nazwa_dostawy=" + getNazwa_dostawy() +
-//                "&kod_dostawy=" + getKod_dostawy() +
-//                "&miejscowosc_dostawy=" + getMiejscowosc_dostawy() +
-//                "&ulica_dostawy=" + getUlica_dostawy() +
-//                "&id_dostawy=" + getId_dostawy() +
-//                printMap(produkty) +
-//                "&imie=" + getImie() +
-//                "&nazwisko=" + getNazwisko() +
-//                "&telefon=" + getTelefon() +
-//                "&id_statusu=" + getId_statusu() +
-//                "&email=" + getEmail() +
-//                "&uwagi=" + getUwagi() +
-//                "&panstwo=" + getPanstwo() +
-//                "&panstwo_dostawy=" + getPanstwo_dostawy() +
-//                "&id_waluty=" + getId_waluty();
-//    }
-
     public String toRequestString() {
         return "https://" + ValueAnnotationBean.getNumber() +
                 ".systim.pl/jsonAPI.php?act=addOrder";
@@ -384,35 +348,25 @@ public class Order extends Systim {
     public String toParametersString() {
         return "&login=" + ValueAnnotationBean.getLogin() +
                 "&pass=" + ValueAnnotationBean.getPass() +
-                "&nazwa=" + EncodingService.EncodingString(getNazwa()) +
-                "&kod=" + EncodingService.EncodingString(getKod()) +
-                "&miejscowosc=" + EncodingService.EncodingString(getMiejscowosc()) +
-                "&ulica=" + EncodingService.EncodingString(getUlica()) +
-                "&nazwa_dostawy=" + EncodingService.EncodingString(getNazwa_dostawy()) +
-                "&kod_dostawy=" + EncodingService.EncodingString(getKod_dostawy()) +
-                "&miejscowosc_dostawy=" + EncodingService.EncodingString(getMiejscowosc_dostawy()) +
-                "&ulica_dostawy=" + EncodingService.EncodingString(getUlica_dostawy()) +
+                "&nazwa=" + getNazwa() +
+                "&kod=" + getKod() +
+                "&miejscowosc=" + getMiejscowosc() +
+                "&ulica=" + getUlica() +
+                "&nazwa_dostawy=" + getNazwa_dostawy() +
+                "&kod_dostawy=" + getKod_dostawy() +
+                "&miejscowosc_dostawy=" + getMiejscowosc_dostawy() +
+                "&ulica_dostawy=" + getUlica_dostawy() +
                 "&id_dostawy=" + getId_dostawy() +
                 printMap(produkty) +
-                "&imie=" + EncodingService.EncodingString(getImie()) +
-                "&nazwisko=" + EncodingService.EncodingString(getNazwisko()) +
-                "&telefon=" + EncodingService.EncodingString(getTelefon()) +
+                "&imie=" + getImie() +
+                "&nazwisko=" + getNazwisko() +
+                "&telefon=" + getTelefon() +
                 "&id_statusu=" + getId_statusu() +
-                "&email=" + EncodingService.EncodingString(getEmail()) +
-                "&uwagi=" + EncodingService.EncodingString(getUwagi()) +
-                "&panstwo=" + EncodingService.EncodingString(getPanstwo()) +
-                "&panstwo_dostawy=" + EncodingService.EncodingString(getPanstwo_dostawy()) +
+                "&email=" + getEmail() +
+                "&uwagi=" + getUwagi() +
+                "&panstwo=" + getPanstwo() +
+                "&panstwo_dostawy=" + getPanstwo_dostawy() +
                 "&id_waluty=" + getId_waluty();
-    }
-    
-    public String encodeValue(String value) {
-        try {
-            //URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-            value = URLEncoder.encode(value, "UTF-8");
-        } catch (Exception e) {
-            logger.error("Error encoding parameter {}", e.getMessage(), e);
-        }
-        return value;
     }
 
     public static String printMap(HashMap mp) {
@@ -424,7 +378,6 @@ public class Order extends Systim {
                 productsSet += "&produkty[" + k + "][id]=" + pair.getKey() + "&produkty[" + k + "][ilosc]=" + pair.getValue();
             }
         }
-        //System.out.println(productsSet);
         return productsSet;
     }
 

@@ -35,7 +35,7 @@ public class OrderController {
         return orders.getBody();
     }
 
-    //convert backmarket orders and send to systim
+    //convert backmarket orders newer than last task date and send to systim
     @RequestMapping("/convertOrders")
     public String getOrdersObjects() {
         HttpHeaders headers = restExchangeService.setHeaders();
