@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.i4less.ordertool.entity.backmarket.OrdersList;
 import pl.i4less.ordertool.service.ConvertOrdersService;
 import pl.i4less.ordertool.service.RestExchangeService;
+import pl.i4less.ordertool.service.SystimService;
 
 @RestController
 @Controller
@@ -18,6 +19,9 @@ public class OrderController {
 
     @Autowired
     RestExchangeService restExchangeService;
+
+    @Autowired
+    SystimService systimService;
 
     //get listings (products) in json from backmarket
     @RequestMapping("/listings")
@@ -40,7 +44,7 @@ public class OrderController {
     public String getOrdersObjects() {
         HttpHeaders headers = restExchangeService.setHeaders();
         OrdersList orders = restExchangeService.getOrders(headers);
-        convertOrdersService.convertOrders(orders);
+        systimService.sendToSystim(convertOrdersService.convertOrders(orders));
         return orders.toString();
     }
 
@@ -49,7 +53,7 @@ public class OrderController {
     public String getAllOrdersObjects() {
         HttpHeaders headers = restExchangeService.setHeaders();
         OrdersList orders = restExchangeService.getAllOrders(headers);
-        convertOrdersService.convertOrders(orders);
+        systimService.sendToSystim(convertOrdersService.convertOrders(orders));
         return orders.toString();
     }
 

@@ -5,6 +5,7 @@ import pl.i4less.ordertool.ValueAnnotationBean;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public class Order extends Systim {
 
@@ -76,6 +77,9 @@ public class Order extends Systim {
 
     @Nullable
     private String telefon;
+
+    @Nullable
+    private List<Product> productList;
 
     public String getNazwa() {
         return nazwa;
@@ -305,6 +309,15 @@ public class Order extends Systim {
 
     public void setTelefon(@Nullable String telefon) {
         this.telefon = telefon;
+    }
+
+    @Nullable
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(@Nullable List<Product> productList) {
+        this.productList = productList;
     }
 
     @Override
