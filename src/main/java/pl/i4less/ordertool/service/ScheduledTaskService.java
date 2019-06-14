@@ -16,6 +16,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -31,6 +32,8 @@ public class ScheduledTaskService {
     private Date taskDate;
 
     private String taskDateString;
+
+    private Date dateFromFile;
 
     public Date getTaskDate() {
         return taskDate;
@@ -48,6 +51,14 @@ public class ScheduledTaskService {
         this.taskDateString = taskDateString;
     }
 
+    public Date getDateFromFile() {
+        return dateFromFile;
+    }
+
+    public void setDateFromFile(Date dateFromFile) {
+        this.dateFromFile = dateFromFile;
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(Logging.class);
 
     private static String readFile(String path, Charset encoding) throws IOException {
@@ -55,19 +66,36 @@ public class ScheduledTaskService {
         return new String(encoded, encoding);
     }
 
-    @Scheduled(fixedRateString = "${fixedRate.in.milliseconds}")
-    public void executeTask() {
+//    @Scheduled(fixedRateString = "${fixedRate.in.milliseconds}")
+//    public void executeTask() {
+//        try {
+//            //read data from file
+//            logger.info(readFile(filePath, Charset.forName("ASCII")) + " - ostatnie wykonanie zadania.");
+//
+//            //get current date and convert to String
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            Date date = new Date();
+//            String dateString = dateFormat.format(date);
+//            logger.info(dateString + " - data aktualna.");
+//
+//            //orderController.getOrdersObjects();
+//
+//            //create and save date to file
+//            File file = new File("src/main/resources/date.log");
+//            FileWriter fileWriter = new FileWriter(file, false);
+//            fileWriter.write(dateString);
+//            fileWriter.close();
+//        } catch (IOException e) {
+//            logger.info("Error: {}", e);
+//        }
+//    }
+
+    public void SaveCreationDate(Date date) {
         try {
-            //read data from file
-            logger.info(readFile(filePath, Charset.forName("ASCII")) + " - ostatnie wykonanie zadania.");
-
-            //get current date and convert to String
+            //get creation date and convert to String
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date = new Date();
             String dateString = dateFormat.format(date);
-            logger.info(dateString + " - data aktualna.");
-
-            //orderController.getOrdersObjects();
+            logger.info(dateString + " - data utworzenia konwertowanego zamówienia.");
 
             //create and save date to file
             File file = new File("src/main/resources/date.log");
@@ -77,6 +105,21 @@ public class ScheduledTaskService {
         } catch (IOException e) {
             logger.info("Error: {}", e);
         }
+    }
+
+    public Date getDate() {
+        try {
+            //read data from file
+            String dateString = readFile(filePath, Charset.forName("ASCII"));
+
+            //parse string to date format
+            dateFromFile = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateString);
+        } catch (IOException e) {
+            logger.info("Error: {}", e);
+        } catch (ParseException e) {
+            logger.info("Error: {}", e);
+        }
+        return dateFromFile;
     }
 
 }

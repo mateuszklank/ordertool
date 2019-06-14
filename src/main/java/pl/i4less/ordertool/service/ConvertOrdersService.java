@@ -22,6 +22,9 @@ public class ConvertOrdersService {
     @Autowired
     RestExchangeService restExchangeService;
 
+    @Autowired
+    ScheduledTaskService scheduledTaskService;
+
     private static final Logger logger = LoggerFactory.getLogger(Logging.class);
 
     @Nullable
@@ -161,80 +164,170 @@ public class ConvertOrdersService {
 //        }
 //    }
 
-    //converting orders from backmarket to systim
+//    //converting orders from backmarket to systim
+//    public List<Order> convertOrders(OrdersList ordersList) {
+//
+//        //create list of systim orders
+//        List<Order> systimOrdersList = new ArrayList<>();
+//
+//        //for every order in orders list
+//        for(int i = 0; i < ordersList.getResults().size(); i++) {
+//
+//            //create new systim order
+//            pl.i4less.ordertool.entity.systim.Order orderSystim = new pl.i4less.ordertool.entity.systim.Order();
+//
+//            //set values for systim order
+//            pl.i4less.ordertool.entity.backmarket.Order order = ordersList.getResults().get(i);
+//            orderSystim.setNazwa(order.getShipping_address().getFirst_name() + " " + order.getShipping_address().getLast_name());
+//            orderSystim.setKod(order.getBilling_address().getPostal_code());
+//            orderSystim.setMiejscowosc(order.getBilling_address().getCity());
+//            orderSystim.setUlica(order.getBilling_address().getStreet() + " " + order.getBilling_address().getStreet2());
+//            orderSystim.setNazwa_dostawy(order.getShipper());
+//            orderSystim.setKod_dostawy(order.getShipping_address().getPostal_code());
+//            orderSystim.setMiejscowosc_dostawy(order.getShipping_address().getCity());
+//            orderSystim.setUlica_dostawy(order.getShipping_address().getStreet() + " " + order.getShipping_address().getStreet2());
+//            orderSystim.setId_dostawy(order.getOrder_id());
+//            orderSystim.setId_zamawiajacego(order.getOrder_id());
+//            orderSystim.setImie(order.getShipping_address().getFirst_name());
+//            orderSystim.setNazwisko(order.getShipping_address().getLast_name());
+//            orderSystim.setTelefon(order.getShipping_address().getPhone());
+//            orderSystim.setId_statusu(order.getState());
+//            orderSystim.setEmail(order.getShipping_address().getEmail());
+//            orderSystim.setUwagi(order.getDelivery_note());
+//            orderSystim.setPanstwo(order.getBilling_address().getCountry());
+//            orderSystim.setPanstwo_dostawy(order.getShipping_address().getCountry());
+//
+//            //check and set currency
+//            if(order.getCurrency().equals("EUR")) {
+//                orderSystim.setId_waluty(1);
+//            } else if(order.getCurrency().equals("USD")) {
+//                orderSystim.setId_waluty(2);
+//            } else if(order.getCurrency().equals("PLN")) {
+//                orderSystim.setId_waluty(0);
+//            }
+//
+//            //create list of systim products
+//            List<Product> productList = new ArrayList<>();
+//
+//            //for every product in this order
+//            for(int j = 0; j < order.getOrderlines().size(); j++) {
+//
+//                //create new systim product
+//                Product productSystim = new Product();
+//
+//                //set values for systim product
+//                OrderLine orderLine = order.getOrderlines().get(j);
+//                productSystim.setNazwa(orderLine.getProduct());
+//                productSystim.setCena_brutto(orderLine.getPrice());
+//                productSystim.setCena_netto(orderLine.getPrice() * 0.81300813);
+//                productSystim.setId_kategorii(1);
+//                productSystim.setStawka_vat(1);
+//                productSystim.setRodzaj(1);
+//                productSystim.setJednostka("szt.");
+//                productSystim.setOpis(orderLine.getBrand());
+//                productSystim.setKod_kreskowy(orderLine.getProduct_id());
+//                productSystim.setKod_produktu(orderLine.getProduct_id());
+//                productSystim.setIlosc(orderLine.getQuantity());
+//
+//                //add product to list
+//                productList.add(productSystim);
+//            }
+//
+//            //set product list for systim order
+//            orderSystim.setProductList(productList);
+//
+//            //add systim order to list
+//            systimOrdersList.add(orderSystim);
+//        }
+//        return systimOrdersList;
+//    }
+
+    //converting one order from backmarket to systim
     public List<Order> convertOrders(OrdersList ordersList) {
 
         //create list of systim orders
         List<Order> systimOrdersList = new ArrayList<>();
 
-        //for every order in orders list
-        for(int i = 0; i < ordersList.getResults().size(); i++) {
+        //check orders list size
+        if(ordersList.getResults().size() != 0){
+            //for every order in orders list
+            for(int i = 0; i < 1; i++) {
 
-            //create new systim order
-            pl.i4less.ordertool.entity.systim.Order orderSystim = new pl.i4less.ordertool.entity.systim.Order();
+                //create new systim order
+                pl.i4less.ordertool.entity.systim.Order orderSystim = new pl.i4less.ordertool.entity.systim.Order();
 
-            //set values for systim order
-            pl.i4less.ordertool.entity.backmarket.Order order = ordersList.getResults().get(i);
-            orderSystim.setNazwa(order.getShipping_address().getFirst_name() + " " + order.getShipping_address().getLast_name());
-            orderSystim.setKod(order.getBilling_address().getPostal_code());
-            orderSystim.setMiejscowosc(order.getBilling_address().getCity());
-            orderSystim.setUlica(order.getBilling_address().getStreet() + " " + order.getBilling_address().getStreet2());
-            orderSystim.setNazwa_dostawy(order.getShipper());
-            orderSystim.setKod_dostawy(order.getShipping_address().getPostal_code());
-            orderSystim.setMiejscowosc_dostawy(order.getShipping_address().getCity());
-            orderSystim.setUlica_dostawy(order.getShipping_address().getStreet() + " " + order.getShipping_address().getStreet2());
-            orderSystim.setId_dostawy(order.getOrder_id());
-            orderSystim.setId_zamawiajacego(order.getOrder_id());
-            orderSystim.setImie(order.getShipping_address().getFirst_name());
-            orderSystim.setNazwisko(order.getShipping_address().getLast_name());
-            orderSystim.setTelefon(order.getShipping_address().getPhone());
-            orderSystim.setId_statusu(order.getState());
-            orderSystim.setEmail(order.getShipping_address().getEmail());
-            orderSystim.setUwagi(order.getDelivery_note());
-            orderSystim.setPanstwo(order.getBilling_address().getCountry());
-            orderSystim.setPanstwo_dostawy(order.getShipping_address().getCountry());
+                //create backmarket order
+                pl.i4less.ordertool.entity.backmarket.Order order = ordersList.getResults().get(i);
 
-            //check and set currency
-            if(order.getCurrency().equals("EUR")) {
-                orderSystim.setId_waluty(1);
-            } else if(order.getCurrency().equals("USD")) {
-                orderSystim.setId_waluty(2);
-            } else if(order.getCurrency().equals("PLN")) {
-                orderSystim.setId_waluty(0);
+                //compare dates
+                if(scheduledTaskService.getDate().before(order.getDate_creation())) {
+
+                    //set values for systim order
+                    orderSystim.setNazwa(order.getShipping_address().getFirst_name() + " " + order.getShipping_address().getLast_name());
+                    orderSystim.setKod(order.getBilling_address().getPostal_code());
+                    orderSystim.setMiejscowosc(order.getBilling_address().getCity());
+                    orderSystim.setUlica(order.getBilling_address().getStreet() + " " + order.getBilling_address().getStreet2());
+                    orderSystim.setNazwa_dostawy(order.getShipper());
+                    orderSystim.setKod_dostawy(order.getShipping_address().getPostal_code());
+                    orderSystim.setMiejscowosc_dostawy(order.getShipping_address().getCity());
+                    orderSystim.setUlica_dostawy(order.getShipping_address().getStreet() + " " + order.getShipping_address().getStreet2());
+                    orderSystim.setId_dostawy(order.getOrder_id());
+                    orderSystim.setId_zamawiajacego(order.getOrder_id());
+                    orderSystim.setImie(order.getShipping_address().getFirst_name());
+                    orderSystim.setNazwisko(order.getShipping_address().getLast_name());
+                    orderSystim.setTelefon(order.getShipping_address().getPhone());
+                    orderSystim.setId_statusu(order.getState());
+                    orderSystim.setEmail(order.getShipping_address().getEmail());
+                    orderSystim.setUwagi(order.getDelivery_note());
+                    orderSystim.setPanstwo(order.getBilling_address().getCountry());
+                    orderSystim.setPanstwo_dostawy(order.getShipping_address().getCountry());
+
+                    //check and set currency
+                    if(order.getCurrency().equals("EUR")) {
+                        orderSystim.setId_waluty(1);
+                    } else if(order.getCurrency().equals("USD")) {
+                        orderSystim.setId_waluty(2);
+                    } else if(order.getCurrency().equals("PLN")) {
+                        orderSystim.setId_waluty(0);
+                    }
+
+                    //create list of systim products
+                    List<Product> productList = new ArrayList<>();
+
+                    //for every product in this order
+                    for(int j = 0; j < order.getOrderlines().size(); j++) {
+
+                        //create new systim product
+                        Product productSystim = new Product();
+
+                        //set values for systim product
+                        OrderLine orderLine = order.getOrderlines().get(j);
+                        productSystim.setNazwa(orderLine.getProduct());
+                        productSystim.setCena_brutto(orderLine.getPrice());
+                        productSystim.setCena_netto(orderLine.getPrice() * 0.81300813);
+                        productSystim.setId_kategorii(1);
+                        productSystim.setStawka_vat(1);
+                        productSystim.setRodzaj(1);
+                        productSystim.setJednostka("szt.");
+                        productSystim.setOpis(orderLine.getBrand());
+                        productSystim.setKod_kreskowy(orderLine.getProduct_id());
+                        productSystim.setKod_produktu(orderLine.getProduct_id());
+                        productSystim.setIlosc(orderLine.getQuantity());
+
+                        //add product to list
+                        productList.add(productSystim);
+                    }
+
+                    //set product list for systim order
+                    orderSystim.setProductList(productList);
+
+                    //add systim order to list
+                    systimOrdersList.add(orderSystim);
+
+                    //save order creation date to file
+                    scheduledTaskService.SaveCreationDate(order.getDate_creation());
+                }
             }
-
-            //create list of systim products
-            List<Product> productList = new ArrayList<>();
-
-            //for every product in this order
-            for(int j = 0; j < order.getOrderlines().size(); j++) {
-
-                //create new systim product
-                Product productSystim = new Product();
-
-                //set values for systim product
-                OrderLine orderLine = order.getOrderlines().get(j);
-                productSystim.setNazwa(orderLine.getProduct());
-                productSystim.setCena_brutto(orderLine.getPrice());
-                productSystim.setCena_netto(orderLine.getPrice() * 0.81300813);
-                productSystim.setId_kategorii(1);
-                productSystim.setStawka_vat(1);
-                productSystim.setRodzaj(1);
-                productSystim.setJednostka("szt.");
-                productSystim.setOpis(orderLine.getBrand());
-                productSystim.setKod_kreskowy(orderLine.getProduct_id());
-                productSystim.setKod_produktu(orderLine.getProduct_id());
-                productSystim.setIlosc(orderLine.getQuantity());
-
-                //add product to list
-                productList.add(productSystim);
-            }
-
-            //set product list for systim order
-            orderSystim.setProductList(productList);
-
-            //add systim order to list
-            systimOrdersList.add(orderSystim);
         }
         return systimOrdersList;
     }
