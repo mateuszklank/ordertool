@@ -1,0 +1,11 @@
+# Instrukcja obsługi programu do konwertowania zamówień z Backmarket do Systim
+
+1) Uruchom application.properties znajdujący się w ordertool/src/resources/.
+2) W systim.login wprowadź e-mail używany do logowania.
+3) W systim.pass podaj wygenerowane hasło dla aplikacji (zakładka użytkownicy -> opcje -> wygeneruj nowy klucz do aplikacji).
+4) W systim.number podaj numer konta Systim (np. https://41665.systim.pl -> wprowadź 41665).
+5) W backmarket.token wprowadź wygenerowany w Backmarket token.
+6) W backmarket.url podaj adres URL użyty do pobrania zamówień z Backmarket.
+7) W backmarket.url.all podaj adres URL do pobrania wszystkich zamówień (bez "?date_creation=").
+8) Otwórz lub jeśli nie istnieje utwórz w folderze ordertool/src/resources/ plik date.log.
+9) Wprowadź datę graniczną do pobierania zamówień np. 2019-03-23 10:36:39 (zostaną pobrane późniejsze niż data w pliku).
