@@ -18,6 +18,32 @@
         <java.version>1.8</java.version>
         <output.directory.for.exploded.jar>I4LESS</output.directory.for.exploded.jar>
     </properties>
+    <profiles>
+        <profile>
+            <id>PROD</id>
+            <properties>
+                <conf.path.date>BOOT-INF/classes/date.tmp</conf.path.date>
+                <conf.backmarket.url>https://www.backmarket.com/ws/orders/?date_creation=</conf.backmarket.url>
+                <conf.backmarket.url.all>https://www.backmarket.com/ws/orders/</conf.backmarket.url.all>
+            </properties>
+        </profile>
+        <profile>
+            <id>DEV_MK</id>
+            <properties>
+                <path.date>C:/Users/Quari/Desktop/project/ordertool/src/main/resources/date.log</path.date>
+                <conf.backmarket.url>https://ppr.backmarket.fr/ws/orders/?date_creation=</conf.backmarket.url>
+                <conf.backmarket.url.all>https://ppr.backmarket.fr/ws/orders/</conf.backmarket.url.all>
+            </properties>
+        </profile>
+        <profile>
+            <id>DEV_DG</id>
+            <properties>
+                <path.date>BOOT-INF/classes/date.tmp</path.date>
+                <conf.backmarket.url>https://ppr.backmarket.fr/ws/orders/?date_creation=</conf.backmarket.url>
+                <conf.backmarket.url.all>https://ppr.backmarket.fr/ws/orders/</conf.backmarket.url.all>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>

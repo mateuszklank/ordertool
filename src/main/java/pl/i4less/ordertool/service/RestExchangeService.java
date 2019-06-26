@@ -36,17 +36,17 @@ public class RestExchangeService {
     //receive response from systim
     public Response exchangeString(String addProductRequestUrl, String addProductParametersUrl) {
         RestTemplate rest = new RestTemplate();
-        ResponseEntity<String> response = rest.exchange(
-                addProductRequestUrl + addProductParametersUrl,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<String>(){});
+        String backmarketUrl = addProductRequestUrl + addProductParametersUrl;
+        logger.info("Sending GTE to:{}", backmarketUrl);
+        ResponseEntity<String> response = rest.exchange(backmarketUrl, HttpMethod.GET, null,
+                new ParameterizedTypeReference<String>() {
+                });
         String resp = response.getBody();
         Response responseObject = new Response();
         try {
             responseObject = new ObjectMapper().readValue(resp, Response.class);
-        } catch(IOException e) {
-            logger.info("Error: {}", e);
+        } catch (IOException e) {
+            logger.error("Error: {}", e);
         }
         return responseObject;
     }
@@ -58,7 +58,8 @@ public class RestExchangeService {
                 backmarketUrlAll,
                 HttpMethod.GET,
                 new HttpEntity<>("parameters", headers),
-                new ParameterizedTypeReference<OrdersList>(){});
+                new ParameterizedTypeReference<OrdersList>() {
+                });
         OrdersList orders = response.getBody();
         return orders;
     }
@@ -71,7 +72,8 @@ public class RestExchangeService {
                 backmarketUrl + taskDateString,
                 HttpMethod.GET,
                 new HttpEntity<>("parameters", headers),
-                new ParameterizedTypeReference<OrdersList>(){});
+                new ParameterizedTypeReference<OrdersList>() {
+                });
         OrdersList orders = response.getBody();
         return orders;
     }
@@ -105,7 +107,7 @@ public class RestExchangeService {
         headers.add("Content-type", "application/json");
         headers.add("Accept", "application/json");
         headers.add("Accept-Language", "fr-fr");
-        headers.add("Authorization", "Basic " +authToken);
+        headers.add("Authorization", "Basic " + authToken);
         return headers;
     }
 
