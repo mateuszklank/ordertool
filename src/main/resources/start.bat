@@ -1,0 +1,1 @@
+call d:\SDK\Java\jdk1.8.0_151\bin\java -cp . -D"loader.main=pl.i4less.ordertool.OrdertoolApplication" org.springframework.boot.loader.PropertiesLauncher"

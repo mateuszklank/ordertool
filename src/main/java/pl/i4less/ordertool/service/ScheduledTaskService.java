@@ -98,7 +98,8 @@ public class ScheduledTaskService {
             logger.info(dateString + " - data utworzenia konwertowanego zamówienia.");
 
             //create and save date to file
-            File file = new File("src/main/resources/date.log");
+//            File file = new File("src/main/resources/date.log");
+            File file = new File(filePath);
             FileWriter fileWriter = new FileWriter(file, false);
             fileWriter.write(dateString);
             fileWriter.close();
