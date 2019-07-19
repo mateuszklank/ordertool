@@ -31,13 +31,13 @@ public class RestExchangeService {
     @Value("${backmarket.url.all}")
     private String backmarketUrlAll;
 
-    private static final Logger logger = LoggerFactory.getLogger(Logging.class);
+    private static final Logger logger = LoggerFactory.getLogger(RestExchangeService.class);
 
     //receive response from systim
     public Response exchangeString(String addProductRequestUrl, String addProductParametersUrl) {
         RestTemplate rest = new RestTemplate();
         String backmarketUrl = addProductRequestUrl + addProductParametersUrl;
-        logger.info("Sending GTE to:{}", backmarketUrl);
+        logger.info("Sending GET to:{}", backmarketUrl);
         ResponseEntity<String> response = rest.exchange(backmarketUrl, HttpMethod.GET, null,
                 new ParameterizedTypeReference<String>() {
                 });
@@ -66,16 +66,20 @@ public class RestExchangeService {
 
     //get orders from backmarket newer than taskDateString
     public OrdersList getOrders(HttpHeaders headers) {
-        String taskDateString = fileService.getDateFromFile();
-        RestTemplate rest = new RestTemplate();
-        ResponseEntity<OrdersList> response = rest.exchange(
-                backmarketUrl + taskDateString,
-                HttpMethod.GET,
-                new HttpEntity<>("parameters", headers),
-                new ParameterizedTypeReference<OrdersList>() {
-                });
-        OrdersList orders = response.getBody();
-        return orders;
+        try {
+            String taskDateString = fileService.getDateFromFile();
+            RestTemplate rest = new RestTemplate();
+            String requestUrl = backmarketUrl + taskDateString;
+            logger.info("Sending GET to:{}", requestUrl);
+            ResponseEntity<OrdersList> response = rest.exchange(requestUrl, HttpMethod.GET, new HttpEntity<>("parameters", headers),
+                    new ParameterizedTypeReference<OrdersList>() {
+                    });
+            OrdersList orders = response.getBody();
+            return orders;
+        }catch (Exception ex){
+            logger.error("getOrders error:" + ex.getMessage(), ex);
+        }
+        return null;
     }
 
     //get orders from backmarket in json
