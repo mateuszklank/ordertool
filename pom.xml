@@ -23,7 +23,8 @@
             <id>PROD</id>
             <properties>
                 <conf.path.date>BOOT-INF/classes/date.tmp</conf.path.date>
-                <conf.backmarket.url>https://www.backmarket.com/ws/orders/?date_creation=</conf.backmarket.url>
+                <conf.backmarket.url1>https://www.backmarket.com/ws/orders/?date_payment=</conf.backmarket.url1>
+                <conf.backmarket.url2>&amp;state=1</conf.backmarket.url2>
                 <conf.backmarket.url.all>https://www.backmarket.com/ws/orders/</conf.backmarket.url.all>
             </properties>
         </profile>
@@ -31,7 +32,8 @@
             <id>DEV_MK</id>
             <properties>
                 <conf.path.date>C:/Users/Quari/Desktop/project/ordertool/src/main/resources/date.log</conf.path.date>
-                <conf.backmarket.url>https://ppr.backmarket.fr/ws/orders/?date_creation=</conf.backmarket.url>
+                <conf.backmarket.url1>https://ppr.backmarket.fr/ws/orders/?date_payment=</conf.backmarket.url1>
+                <conf.backmarket.url2>&amp;state=1</conf.backmarket.url2>
                 <conf.backmarket.url.all>https://ppr.backmarket.fr/ws/orders/</conf.backmarket.url.all>
             </properties>
         </profile>
@@ -39,7 +41,8 @@
             <id>DEV_DG</id>
             <properties>
                 <conf.path.date>BOOT-INF/classes/date.tmp</conf.path.date>
-                <conf.backmarket.url>https://ppr.backmarket.fr/ws/orders/?date_creation=</conf.backmarket.url>
+                <conf.backmarket.url1>https://ppr.backmarket.fr/ws/orders/?date_payment=</conf.backmarket.url1>
+                <conf.backmarket.url2>&amp;state=1</conf.backmarket.url2>
                 <conf.backmarket.url.all>https://ppr.backmarket.fr/ws/orders/</conf.backmarket.url.all>
             </properties>
         </profile>

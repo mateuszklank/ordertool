@@ -326,7 +326,8 @@ public class ConvertOrdersService {
                     systimOrdersList.add(orderSystim);
 
                     //save order creation date to file
-                    scheduledTaskService.SaveCreationDate(order.getDate_creation());
+                    scheduledTaskService.SaveCreationDate(order.getDate_payment());
+                    //scheduledTaskService.SaveCreationDate(order.getDate_creation());
                 }
             }
         }

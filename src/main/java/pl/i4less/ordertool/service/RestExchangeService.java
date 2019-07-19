@@ -25,8 +25,11 @@ public class RestExchangeService {
     @Value("${backmarket.token}")
     private String authToken;
 
-    @Value("${backmarket.url}")
-    private String backmarketUrl;
+    @Value("${backmarket.url1}")
+    private String backmarketUrl1;
+
+    @Value("${backmarket.url2}")
+    private String backmarketUrl2;
 
     @Value("${backmarket.url.all}")
     private String backmarketUrlAll;
@@ -69,15 +72,18 @@ public class RestExchangeService {
         try {
             String taskDateString = fileService.getDateFromFile();
             RestTemplate rest = new RestTemplate();
-            String requestUrl = backmarketUrl + taskDateString;
-            logger.info("Sending GET to:{}", requestUrl);
-            ResponseEntity<OrdersList> response = rest.exchange(requestUrl, HttpMethod.GET, new HttpEntity<>("parameters", headers),
+            String requestUrl = backmarketUrl1 + taskDateString + backmarketUrl2;
+            logger.info("Sending GET to: {}", requestUrl);
+            ResponseEntity<OrdersList> response = rest.exchange(
+                    requestUrl,
+                    HttpMethod.GET,
+                    new HttpEntity<>("parameters", headers),
                     new ParameterizedTypeReference<OrdersList>() {
                     });
             OrdersList orders = response.getBody();
             return orders;
-        }catch (Exception ex){
-            logger.error("getOrders error:" + ex.getMessage(), ex);
+        } catch (Exception ex){
+            logger.error("getOrders error: " + ex.getMessage(), ex);
         }
         return null;
     }
