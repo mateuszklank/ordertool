@@ -269,14 +269,14 @@ public class ConvertOrdersService {
                     orderSystim.setKod(order.getBilling_address().getPostal_code());
                     orderSystim.setMiejscowosc(order.getBilling_address().getCity());
                     orderSystim.setUlica(order.getBilling_address().getStreet() + " " + order.getBilling_address().getStreet2());
-                    orderSystim.setNazwa_dostawy(order.getBilling_address().getFirst_name() + " " + order.getBilling_address().getLast_name());
-                    //orderSystim.setNazwa_dostawy(order.getShipper());
-                    orderSystim.setKod_dostawy(order.getBilling_address().getPostal_code());
-                    //orderSystim.setKod_dostawy(order.getShipping_address().getPostal_code());
-                    orderSystim.setMiejscowosc_dostawy(order.getBilling_address().getCity());
-                    //orderSystim.setMiejscowosc_dostawy(order.getShipping_address().getCity());
-                    orderSystim.setUlica_dostawy(order.getBilling_address().getStreet() + " " + order.getBilling_address().getStreet2());
-                    //orderSystim.setUlica_dostawy(order.getShipping_address().getStreet() + " " + order.getShipping_address().getStreet2());
+                    orderSystim.setNazwa_dostawy(order.getShipping_address().getFirst_name() + " " + order.getShipping_address().getLast_name());
+//                    orderSystim.setNazwa_dostawy(order.getShipper());
+//                    orderSystim.setKod_dostawy(order.getBilling_address().getPostal_code());
+                    orderSystim.setKod_dostawy(order.getShipping_address().getPostal_code());
+//                    orderSystim.setMiejscowosc_dostawy(order.getBilling_address().getCity());
+                    orderSystim.setMiejscowosc_dostawy(order.getShipping_address().getCity());
+//                    orderSystim.setUlica_dostawy(order.getBilling_address().getStreet() + " " + order.getBilling_address().getStreet2());
+                    orderSystim.setUlica_dostawy(order.getShipping_address().getStreet() + " " + order.getShipping_address().getStreet2());
                     orderSystim.setId_dostawy(order.getOrder_id());
                     orderSystim.setId_zamawiajacego(order.getOrder_id());
                     orderSystim.setImie(order.getBilling_address().getFirst_name());
@@ -290,8 +290,8 @@ public class ConvertOrdersService {
                     //orderSystim.setEmail(order.getShipping_address().getEmail());
                     orderSystim.setUwagi("");
                     orderSystim.setPanstwo(order.getBilling_address().getCountry());
-                    orderSystim.setPanstwo_dostawy(order.getBilling_address().getCountry());
-                    //orderSystim.setPanstwo_dostawy(order.getShipping_address().getCountry());
+//                    orderSystim.setPanstwo_dostawy(order.getBilling_address().getCountry());
+                    orderSystim.setPanstwo_dostawy(order.getShipping_address().getCountry());
 
                     //check and set currency
                     if(order.getCurrency().equals("EUR")) {
