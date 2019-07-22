@@ -279,7 +279,7 @@ public class ConvertOrdersService {
                     orderSystim.setTelefon(order.getShipping_address().getPhone());
                     orderSystim.setId_statusu(order.getState());
                     orderSystim.setEmail(order.getShipping_address().getEmail());
-                    orderSystim.setUwagi(order.getDelivery_note());
+                    orderSystim.setUwagi("");
                     orderSystim.setPanstwo(order.getBilling_address().getCountry());
                     orderSystim.setPanstwo_dostawy(order.getShipping_address().getCountry());
 
