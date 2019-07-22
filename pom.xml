@@ -23,9 +23,9 @@
             <id>PROD</id>
             <properties>
                 <conf.path.date>BOOT-INF/classes/date.tmp</conf.path.date>
-                <conf.backmarket.url1>https://www.backmarket.com/ws/orders/?date_payment=</conf.backmarket.url1>
+                <conf.backmarket.url1>https://www.backmarket.fr/ws/orders/?date_payment=</conf.backmarket.url1>
                 <conf.backmarket.url2>&amp;state=1</conf.backmarket.url2>
-                <conf.backmarket.url.all>https://www.backmarket.com/ws/orders/</conf.backmarket.url.all>
+                <conf.backmarket.url.all>https://www.backmarket.fr/ws/orders/</conf.backmarket.url.all>
             </properties>
         </profile>
         <profile>

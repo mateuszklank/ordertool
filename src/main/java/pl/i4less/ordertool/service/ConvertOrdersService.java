@@ -307,7 +307,7 @@ public class ConvertOrdersService {
                         productSystim.setCena_brutto(orderLine.getPrice());
                         productSystim.setCena_netto(orderLine.getPrice() * 0.81300813);
                         productSystim.setId_kategorii(1);
-                        productSystim.setStawka_vat(1);
+                        productSystim.setStawka_vat(14);
                         productSystim.setRodzaj(1);
                         productSystim.setJednostka("szt.");
                         productSystim.setOpis(orderLine.getBrand());
