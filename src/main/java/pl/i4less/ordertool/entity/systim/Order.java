@@ -79,6 +79,9 @@ public class Order extends Systim {
     private String telefon;
 
     @Nullable
+    private int id_formy_platnosci;
+
+    @Nullable
     private List<Product> productList;
 
     public String getNazwa() {
@@ -320,6 +323,15 @@ public class Order extends Systim {
         this.productList = productList;
     }
 
+    @Nullable
+    public int getId_formy_platnosci() {
+        return id_formy_platnosci;
+    }
+
+    public void setId_formy_platnosci(@Nullable int id_formy_platnosci) {
+        this.id_formy_platnosci = id_formy_platnosci;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -379,7 +391,8 @@ public class Order extends Systim {
                 "&uwagi=" + getUwagi() +
                 "&panstwo=" + getPanstwo() +
                 "&panstwo_dostawy=" + getPanstwo_dostawy() +
-                "&id_waluty=" + getId_waluty();
+                "&id_waluty=" + getId_waluty() +
+                "&id_formy_platnosci=" + getId_formy_platnosci();
     }
 
     public static String printMap(HashMap mp) {

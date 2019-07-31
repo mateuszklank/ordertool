@@ -292,6 +292,7 @@ public class ConvertOrdersService {
                     orderSystim.setPanstwo(order.getBilling_address().getCountry());
 //                    orderSystim.setPanstwo_dostawy(order.getBilling_address().getCountry());
                     orderSystim.setPanstwo_dostawy(order.getShipping_address().getCountry());
+                    orderSystim.setId_formy_platnosci(1);
 
                     //check and set currency
                     if(order.getCurrency().equals("EUR")) {
